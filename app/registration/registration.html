@@ -1,0 +1,71 @@
+            <div class="panel panel-default">
+			    <toaster-container></toaster-container>
+                <div class="panel-heading">
+                    <h2 class="panel-title">Sign Up</h2>
+                </div>
+                <div ng-controller="RegistrationCtrl" class="panel-body">
+                    <form name="signUpForm" method="post"  action="" class="form-horizontal" role="form" novalidate>
+                        <div class="form-group" ng-class="{ 'has-error': signUpForm.inputFirstName.$invalid && $submitted }">
+                            <label for="inputFirstName" class="col-lg-2 control-label">Firstname</label>
+                            <div class="col-lg-10">
+							<input type="text" class="form-control" name="firstName" ng-model="firstName" required ng-minlength="5" ng-maxlength="30"/>
+							<p ng-show="signUpForm.firstName.$error.required  && !signUpForm.firstName.$pristine" class="help-block">
+							First name is required.</p>
+							<p ng-show="signUpForm.firstName.$error.minlength" class="help-block">First name should have minimum 5 characters.</p>
+							<p ng-show="signUpForm.firstName.$error.maxlength" class="help-block">First name cannot have more than 30 characters.</p>
+                            </div>
+                        </div>
+						
+						<div class="form-group" ng-class="{ 'has-error': signUpForm.inputLastName.$invalid && submitted }">
+                            <label for="inputLastName" class="col-lg-2 control-label">Lastname</label>
+                            <div class="col-lg-10">
+							<input type="text" name="lastName" class="form-control" ng-model="lastName" ng-minlength="2" ng-maxlength="30">
+						    <p ng-show="signUpForm.lastName.$error.required  && !signUpForm.lastName.$pristine" class="help-block">Last name is required.</p>
+							<p ng-show="signUpForm.lastName.$error.minlength && !signUpForm.lastName.$pristine" class="help-block">Last name should have minimum 5 characters.</p>
+							<p ng-show="signUpForm.lastName.$error.maxlength && !signUpForm.lastName.$pristine" class="help-block">Last name cannot have more than 30 characters.</p>
+							</div>
+						</div>
+                        
+                        <div class="form-group" ng-class="{ 'has-error': signUpForm.inputEmail.$invalid && submitted }">
+                            <label for="inputEmail" class="col-lg-2 control-label">Email</label>
+                            <div class="col-lg-10">
+                            <input type="email" class="form-control" name="username" ng-model="username" required ng-maxlength="200" uniqueUsername/>
+							<p ng-show="signUpForm.username.$error.required  && !signUpForm.username.$pristine" class="help-block">Email address is required</p>
+							<p ng-show="signUpForm.username.$error.email  && !signUpForm.username.$pristine" class="help-block">Enter a valid email address.</p>
+							<p ng-show="signUpForm.username.$error.maxlength && !signUpForm.username.$pristine" class="help-block">Email address cannot have more than 200 characters.</p>
+                            </div>
+                        </div>
+						
+						 <div class="form-group" ng-class="{ 'has-error': signUpForm.inputPassword.$invalid && submitted }">
+                            <label for="inputPassword" class="col-lg-2 control-label">Password</label>
+                            <div class="col-lg-10">
+                            <input type="password" name="password" class="form-control" ng-model="password" ng-minlength="6" ng-maxlength="20">
+							<p ng-show="signUpForm.password.$error.minlength && !signUpForm.password.$pristine" class="help-block">Password should have minimum 6 characters.</p>
+							<p ng-show="signUpForm.password.$error.maxlength && !signUpForm.password.$pristine" class="help-block">Password cannot have more than 200 characters.</p>
+                            </div>
+                        </div>
+						
+						 <div class="form-group" ng-class="{ 'has-error': signUpForm.inputConfirmPassword.$invalid && submitted }">
+                            <label for="inputConfirmPassword" class="col-lg-2 control-label">Confirm Password</label>
+                            <div class="col-lg-10">
+                            <input type="password" name="confirmPassword" class="form-control" ng-model="confirmPassword" ng-minlength="6" ng-maxlength="20" match="password" match-caseless="true">
+							<p ng-show="signUpForm.confirmPassword.$error.maxlength && !signUpForm.confirmPassword.$pristine" class="help-block">Confirm Password cannot have more than 200 letters.</p>
+							<p ng-show="signUpForm.confirmPassword.$error.match && !signUpForm.confirmPassword.$pristine" class="help-block">Confirm password and password should match.</p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-lg-offset-2 col-lg-10">
+                                <button type="button" ng-click="registerUser(signUpForm);" class="btn btn-default" data-ng-disabled="signUpForm.$invalid"">
+                                 Submit
+                                </button>
+								
+								<button type="reset" class="btn btn-default" >
+                                 Reset
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                    <p ng-class="result" style="padding: 15px; margin: 0;" >{{ resultMessage }}</p>
+                </div>
+            </div>
+        </div>
