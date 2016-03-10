@@ -1,9 +1,10 @@
+            
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h2 class="panel-title">Login</h2>
                 </div>
                 <div ng-controller="LoginCtrl" class="panel-body">
-                    <form ng-submit="authenticate();" name="loginForm" method="post" action="" class="form-horizontal" role="form" novalidate>
+                    <form name="loginForm" method="post" action="" class="form-horizontal" role="form" novalidate>
                         <div class="form-group" ng-class="{ 'has-error': loginForm.inputName.$invalid && submitted }">
                             <label for="inputName" class="col-lg-2 control-label">User</label>
                             <div class="col-lg-10">
@@ -25,7 +26,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-lg-offset-2 col-lg-10">
-                                <button type="submit" class="btn btn-default" ng-disabled="submitButtonDisabled">
+                                <button type="button" ng-click="authenticate();"  class="btn btn-default" ng-disabled="submitButtonDisabled">
                                  Login
                                 </button>
 								

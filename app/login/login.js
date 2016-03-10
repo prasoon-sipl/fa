@@ -13,38 +13,39 @@ var feedApp = angular.module('feedApp.login', ['ngRoute']).config(['$routeProvid
 }]);
 
 
+feedApp.controller('LoginCtrl', ['$scope', '$http', 'UserService','toaster', 
+function(scope, $http, User,toaster) 
+ { 
 
-feedApp.controller('LoginCtrl', ['$scope', '$http',function($scope, $http) {
+  scope.authenticate = function() {
+  // configuration object
+  var config = {url:'http://localhost/fa/service.php', method: 'POST', data:{action:'authenticateuser',username: scope.username, password: scope.password}}
 
- 
+  $http(config)
+  .success(function(data, status, headers, config) { 
+    if (data.status_message === 'success') {
+      // succefull login
+      User.isLogged = true;
+      User.username = data.username;
+
+      
+    }
+    else {
+      User.isLogged = false;
+      User.username = '';
+      // create a toast with settings:
+                toaster.pop({
+                    type: 'error',
+                    title: '',
+                    body: "Email/Pwd is incorrect",
+                    showCloseButton: true
+                });
+
+    }
+  })
+  .error(function(data, status, headers, config) {
+    User.isLogged = false;
+    User.username = '';
+  });
+}
 }]);
-
-/*socialApp.controller('LoginCtrl', ['$scope', '$http', '$location', '$timeout', 'toaster', '$rootScope', function ($scope, $http, $location, $timeout, toaster, $rootScope) {
-    $scope.submitForm = function() {
-        var data = {
-            email: $scope.email,
-            password: $scope.password
-        };
-        // Sending http request to web server
-        $http.post(basepath+'/webservice/index.php/Login/authenticateUser', data)
-        .success(function(response){
-            // setting all the fields blank
-            $scope.email = '';
-            $scope.password = '';
-
-            if(response.response === true){
-                $rootScope.isLoggedIn = 1;
-                // displaying success message
-                toaster.pop('success', "Success", "You have successfully logged in.Redirecting you in a while...");
-                // redirection after 3 seconds
-                $timeout(function(){
-                    $location.path('/messages'); 
-                },3000);
-            }            
-        })
-        // displaying error message
-        .error(function(response){
-            toaster.pop('error', "Error", "Oops something went wrong. Please try again later.");
-        });
-    };
-}]);*/
